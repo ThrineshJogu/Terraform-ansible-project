@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "one" {
-  bucket = "thrineshjogu123.mono.bucket"
+  bucket = "thrineshjogu.mono.bucket"
 }
 
 resource "aws_s3_bucket_ownership_controls" "two" {
@@ -20,14 +20,5 @@ resource "aws_s3_bucket_versioning" "three" {
 bucket = aws_s3_bucket.one.id
 versioning_configuration {
 status = "Enabled"
-}
-}
-
-
-terraform {
-backend "s3" {
-region = "eu-north-1"
-bucket = "thrineshjogu.mono.bucket"
-key = "prod/terraform.tfstate"
 }
 }
