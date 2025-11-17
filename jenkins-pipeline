@@ -1,13 +1,34 @@
-
-
-
-
-
-
-
-
-
-
+pipeline {
+    agent any
+    stages {
+        stage('terrafrom') {
+            steps {
+                git branch: 'main', url: 'https://github.com/ThrineshJogu/Terraform-ansible-project.git'
+            }
+        }
+        stage('init'){
+            steps{
+                sh 'echo -e "yes\n" terraform init'
+            }
+        }
+        stage('plan'){
+            steps{
+                sh 'terraform plan'
+            }
+        }
+        stage('apply'){
+            steps{
+                sh 'terraform $choice --auto-approve'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                sh 'ansible-playbook -i /opt/ansible/inventory/aws_ec2.yml /var/lib/jenkins/workspace/MyDeployment/ansible'
+            }
+        }
+        
+    }
+}
 
 
 
